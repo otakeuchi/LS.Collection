@@ -606,5 +606,12 @@ namespace 納品データ作成ツール
         }
         #endregion
 
+        #region "メニューバー"
+        private void 店舗の情報の編集ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmShops f = new frmShops(C.SS);
+            f.ShowDialog();
+        }
+        #endregion 
     }
 }

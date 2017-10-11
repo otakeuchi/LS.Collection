@@ -44,11 +44,15 @@
             this.btnExec = new System.Windows.Forms.Button();
             this.pbr = new System.Windows.Forms.ProgressBar();
             this.grpExecute = new System.Windows.Forms.GroupBox();
+            this.ms = new System.Windows.Forms.MenuStrip();
+            this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.店舗の情報の編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpOutDir.SuspendLayout();
             this.grpFileName.SuspendLayout();
             this.grpBatchList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBatch)).BeginInit();
             this.grpExecute.SuspendLayout();
+            this.ms.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpOutDir
@@ -57,7 +61,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpOutDir.Controls.Add(this.txtDir);
             this.grpOutDir.Controls.Add(this.btnSelectDIr);
-            this.grpOutDir.Location = new System.Drawing.Point(17, 10);
+            this.grpOutDir.Location = new System.Drawing.Point(17, 36);
             this.grpOutDir.Name = "grpOutDir";
             this.grpOutDir.Size = new System.Drawing.Size(645, 69);
             this.grpOutDir.TabIndex = 0;
@@ -89,7 +93,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpFileName.Controls.Add(this.lblExt);
             this.grpFileName.Controls.Add(this.txtFile);
-            this.grpFileName.Location = new System.Drawing.Point(18, 91);
+            this.grpFileName.Location = new System.Drawing.Point(18, 114);
             this.grpFileName.Name = "grpFileName";
             this.grpFileName.Size = new System.Drawing.Size(644, 47);
             this.grpFileName.TabIndex = 1;
@@ -120,9 +124,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpBatchList.Controls.Add(this.dgvBatch);
-            this.grpBatchList.Location = new System.Drawing.Point(17, 151);
+            this.grpBatchList.Location = new System.Drawing.Point(17, 170);
             this.grpBatchList.Name = "grpBatchList";
-            this.grpBatchList.Size = new System.Drawing.Size(635, 259);
+            this.grpBatchList.Size = new System.Drawing.Size(635, 292);
             this.grpBatchList.TabIndex = 2;
             this.grpBatchList.TabStop = false;
             this.grpBatchList.Text = "③↓目検済ファイル(CSV)をドラッグアンドドロップして下さい。その後、店舗名称をリストから選択して下さい。↓";
@@ -144,7 +148,7 @@
             this.dgvBatch.RowHeadersVisible = false;
             this.dgvBatch.RowTemplate.Height = 21;
             this.dgvBatch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvBatch.Size = new System.Drawing.Size(629, 241);
+            this.dgvBatch.Size = new System.Drawing.Size(629, 274);
             this.dgvBatch.TabIndex = 0;
             this.dgvBatch.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBatch_CellClick);
             this.dgvBatch.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBatch_CellEnter);
@@ -200,23 +204,50 @@
             this.grpExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.grpExecute.Controls.Add(this.pbr);
             this.grpExecute.Controls.Add(this.btnExec);
-            this.grpExecute.Location = new System.Drawing.Point(18, 429);
+            this.grpExecute.Location = new System.Drawing.Point(18, 481);
             this.grpExecute.Name = "grpExecute";
             this.grpExecute.Size = new System.Drawing.Size(635, 50);
             this.grpExecute.TabIndex = 5;
             this.grpExecute.TabStop = false;
             this.grpExecute.Text = "④実行ボタンを押して下さい";
             // 
+            // ms
+            // 
+            this.ms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.設定ToolStripMenuItem});
+            this.ms.Location = new System.Drawing.Point(0, 0);
+            this.ms.Name = "ms";
+            this.ms.Size = new System.Drawing.Size(664, 24);
+            this.ms.TabIndex = 6;
+            this.ms.Text = "menuStrip1";
+            // 
+            // 設定ToolStripMenuItem
+            // 
+            this.設定ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.店舗の情報の編集ToolStripMenuItem});
+            this.設定ToolStripMenuItem.Name = "設定ToolStripMenuItem";
+            this.設定ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.設定ToolStripMenuItem.Text = "設定";
+            // 
+            // 店舗の情報の編集ToolStripMenuItem
+            // 
+            this.店舗の情報の編集ToolStripMenuItem.Name = "店舗の情報の編集ToolStripMenuItem";
+            this.店舗の情報の編集ToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.店舗の情報の編集ToolStripMenuItem.Text = "店舗の情報の編集";
+            this.店舗の情報の編集ToolStripMenuItem.Click += new System.EventHandler(this.店舗の情報の編集ToolStripMenuItem_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(664, 491);
+            this.ClientSize = new System.Drawing.Size(664, 543);
             this.Controls.Add(this.grpExecute);
             this.Controls.Add(this.grpBatchList);
             this.Controls.Add(this.grpFileName);
             this.Controls.Add(this.grpOutDir);
+            this.Controls.Add(this.ms);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.ms;
             this.MinimumSize = new System.Drawing.Size(680, 500);
             this.Name = "frmMain";
             this.Text = "レイジースーザン納品データ作成";
@@ -230,7 +261,10 @@
             this.grpBatchList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvBatch)).EndInit();
             this.grpExecute.ResumeLayout(false);
+            this.ms.ResumeLayout(false);
+            this.ms.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -251,6 +285,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn BatchNo;
         private System.Windows.Forms.DataGridViewComboBoxColumn ShopName;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
+        private System.Windows.Forms.MenuStrip ms;
+        private System.Windows.Forms.ToolStripMenuItem 設定ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 店舗の情報の編集ToolStripMenuItem;
     }
 }
 

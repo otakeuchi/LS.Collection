@@ -40,6 +40,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ClosedXML.dll</HintPath>
     </Reference>
+    <Reference Include="EOSToolsCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\参照モジュール\EOSToolsCommon.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.XML" />
@@ -65,10 +69,6 @@
     <Compile Include="shopsTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Projects\共通ライブラリ\Common\EOSToolsCommon.vbproj">
-      <Project>{a953705a-6d3d-41f8-a140-50a1b80497e2}</Project>
-      <Name>EOSToolsCommon</Name>
-    </ProjectReference>
     <ProjectReference Include="..\納品データ作成ツール\納品データ作成ツール.csproj">
       <Project>{B23AD566-97EB-4073-8817-C3A46359CA24}</Project>
       <Name>納品データ作成ツール</Name>
