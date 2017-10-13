@@ -20,7 +20,7 @@ namespace 納品データ作成ツール.Tests
         static public string RootImageDir = @"C:\EntryPrj_DEV\WMEM\image\IMPORTED";
 
         // テストファイル出力フォルダ
-        static public string TestDir = @"C:\開発関連\案件\03_レイジースーザン\201707_納品データ作成ツール\テストデータ\単体テスト";
+        static public string TestDir = @"C:\開発関連\案件\03_レイジースーザン\201709_納品データ作成ツール\テストデータ\単体テスト";
 
         static public void ClearTestDir()
         {
@@ -97,7 +97,6 @@ namespace 納品データ作成ツール.Tests
         //　店舗マスタを作成
         static public void CreateShopList()
         {
-            shops ss = new shops();
             var sb = new StringBuilder();
             sb.AppendLine("<?xml version=\"1.0\" encoding=\"SJIS\"?>");
             sb.AppendLine("<Shops>");
@@ -114,6 +113,7 @@ namespace 納品データ作成ツール.Tests
             sb.AppendLine("</Shops>");
 
             FileAccessor.saveFile(ShopsFile, sb.ToString(), false);
+            shops ss = new shops(ShopsFile);
         }
 
         // ダミーのCSVデータを作る。引数にはバッチ番号を指定する

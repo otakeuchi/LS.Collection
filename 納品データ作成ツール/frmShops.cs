@@ -11,10 +11,39 @@ namespace 納品データ作成ツール
     {
         public shops ss { set; private get; }
 
-        private ShopController C;
         private string nr = Environment.NewLine;
         private LogWriter log;
         private CommonError err;
+
+        private string ColCode = "ColCode";
+        private string ColName = "ColName";
+        private string ColOrder = "ColOrder";
+        private string ColDelete = "ColDelete";
+        private string ColUp = "ColUp";
+        private string ColDown = "ColDown";
+
+
+        private void frmShops_Load(object sender, EventArgs e)
+        {
+            // ウィンドウの位置・サイズを復元
+            Bounds = Properties.Settings.Default.BoundsSetting;
+            WindowState = Properties.Settings.Default.WindowStateSetting;
+        }
+
+        private void frmShops_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // ウィンドウの位置・サイズを保存
+            if (WindowState == FormWindowState.Normal)
+            {
+                Properties.Settings.Default.BoundsSetting = Bounds;
+            }
+            else
+            {
+                Properties.Settings.Default.BoundsSetting = RestoreBounds;
+            }
+            Properties.Settings.Default.WindowStateSetting = WindowState;
+            Properties.Settings.Default.Save();
+        }
 
         public frmShops(shops ss):base()
         {
@@ -31,25 +60,15 @@ namespace 納品データ作成ツール
 
             try
             {
-                C = new ShopController(ss);
-            }
-            catch (Exception ex)
-            {
-                err.execute(ex.Message, LogWriter.TYPE_ER, true, log);
-                return;
-            }
+                dgvShops.Columns.Add(CreateTextCol("Code", ColCode, "店舗コード"));
+                dgvShops.Columns.Add(CreateTextCol("Name", ColName, "店舗名称"));
+                dgvShops.Columns.Add(CreateTextCol("Order", ColOrder, "並び"));
+                dgvShops.Columns[ColOrder].Visible = false; // 並び順は非表示
+                dgvShops.Columns.Add(CreateImageCol(ColDelete, "削除", trs));
+                dgvShops.Columns.Add(CreateImageCol(ColUp, "上へ", aru));
+                dgvShops.Columns.Add(CreateImageCol(ColDown, "下へ", ard));
 
-            try
-            {
-                dgvShops.Columns.Add(CreateTextCol("Code", "ShopCode", "店舗コード"));
-                dgvShops.Columns.Add(CreateTextCol("Name", "ShopName", "店舗名称"));
-                dgvShops.Columns.Add(CreateTextCol("Order", "ShopOrder", "並び"));
-                dgvShops.Columns["ShopOrder"].Visible = false; // 並び順は非表示
-                dgvShops.Columns.Add(CreateImageCol("Delete", "削除", trs));
-                dgvShops.Columns.Add(CreateImageCol("Up", "上へ", aru));
-                dgvShops.Columns.Add(CreateImageCol("Down", "下へ", ard));
-
-                BindingList<shop> ds = new BindingList<shop>(C.ss.List);
+                BindingList<shop> ds = new BindingList<shop>(ss.List);
                 dgvShops.DataSource = ds;
             }
             catch (Exception ex)
@@ -58,8 +77,6 @@ namespace 納品データ作成ツール
                     + nr + ex.Message, LogWriter.TYPE_ER, true, log);
                 return;
             }
-
-            
         }
 
         private DataGridViewTextBoxColumn CreateTextCol(string src, string name, string headertext)
@@ -84,6 +101,28 @@ namespace 納品データ作成ツール
             col.DefaultCellStyle.NullValue = null;
 
             return col;
+        }
+
+        private void dgvShops_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string col = dgvShops.Columns[e.ColumnIndex].Name;
+            if (col == ColCode || col == ColName) dgvShops.BeginEdit(true); // 編集モードに
+        }
+
+        private void dgvShops_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            string col = dgvShops.Columns[e.ColumnIndex].Name;
+            if (col == ColCode)
+            {
+                if((string)dgvShops[e.ColumnIndex + 1 , e.RowIndex].Value == "" 
+                    || dgvShops[e.ColumnIndex + 1, e.RowIndex].Value == null) // 名称が未入力の場合
+                {
+                    dgvShops[e.ColumnIndex + 1, e.RowIndex].Selected = true;
+                    dgvShops.BeginEdit(true);
+                }
+            }
+
+
         }
     }
 }

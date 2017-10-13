@@ -173,8 +173,7 @@ namespace 納品データ作成ツール.Tests
             Common.ClearTestDir();
 
             Common.CreateShopList();
-            var ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            var ss = new shops(Common.ShopsFile);
 
             var bs = new Batches();
             List<string> l = Common.CreateImageDir(10); // lの順番は降順
@@ -200,8 +199,7 @@ namespace 納品データ作成ツール.Tests
             Common.ClearTestDir();
 
             Common.CreateShopList();
-            var ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            var ss = new shops(Common.ShopsFile);
 
             var bs = new Batches();
             List<string> l = Common.CreateImageDir(10); // lの順番は降順
@@ -234,8 +232,7 @@ namespace 納品データ作成ツール.Tests
             Common.ClearTestDir();
 
             Common.CreateShopList();
-            var ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            var ss = new shops(Common.ShopsFile);
             var bs = new Batches();
             List<string> l = Common.CreateImageDir(10); // lの順番は降順
 
@@ -481,8 +478,7 @@ namespace 納品データ作成ツール.Tests
             Common.ClearTestDir();
 
             Common.CreateShopList();
-            shops ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            shops ss = new shops(Common.ShopsFile);
 
             List<string> l = Common.CreateImageDir(3); // 3バッチ
             var bs = new Batches();
@@ -516,8 +512,7 @@ namespace 納品データ作成ツール.Tests
             Common.ClearTestDir();
 
             Common.CreateShopList();
-            shops ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            shops ss = new shops(Common.ShopsFile);
 
             List<string> l = Common.CreateImageDir(10); 
             var bs = new Batches();

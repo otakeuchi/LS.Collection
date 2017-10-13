@@ -47,6 +47,8 @@
             this.dgvShops.RowTemplate.Height = 21;
             this.dgvShops.Size = new System.Drawing.Size(440, 309);
             this.dgvShops.TabIndex = 0;
+            this.dgvShops.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShops_CellClick);
+            this.dgvShops.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShops_CellValueChanged);
             // 
             // frmShops
             // 
@@ -57,6 +59,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmShops";
             this.Text = "店舗情報の編集";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmShops_FormClosing);
+            this.Load += new System.EventHandler(this.frmShops_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvShops)).EndInit();
             this.ResumeLayout(false);
 
