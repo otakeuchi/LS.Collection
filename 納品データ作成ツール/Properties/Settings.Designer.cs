@@ -67,7 +67,7 @@ namespace 納品データ作成ツール.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("localhost\\SQLEXPRESS")]
+        [global::System.Configuration.DefaultSettingValueAttribute("eosserver\\SQLEXPRESS")]
         public string DBServer {
             get {
                 return ((string)(this["DBServer"]));
@@ -103,7 +103,7 @@ namespace 納品データ作成ツール.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\EntryPrj_dev\\WMEM\\image\\IMPORTED")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\eosserver\\EntryPrj\\WMEM\\image\\IMPORTED")]
         public string ImageDirRoot {
             get {
                 return ((string)(this["ImageDirRoot"]));

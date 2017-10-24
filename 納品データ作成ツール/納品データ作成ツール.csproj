@@ -78,6 +78,10 @@
   <ItemGroup>
     <Compile Include="Batch.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="DataGridViewEx.cs" />
+    <Compile Include="DataGridViewEx.Designer.cs">
+      <DependentUpon>DataGridViewEx.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
