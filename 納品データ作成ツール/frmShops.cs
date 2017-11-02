@@ -73,6 +73,8 @@ namespace 納品データ作成ツール
 
             InitializeComponent();
 
+            log.write(LogWriter.TYPE_EV, "店舗マスタ編集画面起動開始…");
+
             dgvShops.RowValidating -= new DataGridViewCellCancelEventHandler(dgvShops_RowValidating);
             dgvShops.RowValidated -= new DataGridViewCellEventHandler(dgvShops_RowValidated);
             dgvShops.CellValidating -= new DataGridViewCellValidatingEventHandler(dgvShops_CellValidating);
@@ -89,7 +91,6 @@ namespace 納品データ作成ツール
                 dgvShops.Columns.Add(CreateTextCol("Code", ColCode, "店舗コード"));
                 dgvShops.Columns.Add(CreateTextCol("Name", ColName, "店舗名称"));
                 dgvShops.Columns[ColOrder].ReadOnly = true; // 並び順は編集不可
-                //dgvShops.Columns[ColOrder].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells; // ここで設定するとnullrefの例外
                 dgvShops.Columns.Add(CreateImageCol(ColDelete, "削除"));
                 dgvShops.Columns.Add(CreateImageCol(ColUp, "上へ" ));
                 dgvShops.Columns.Add(CreateImageCol(ColDown, "下へ" ));
@@ -125,14 +126,15 @@ namespace 納品データ作成ツール
             Bounds = Properties.Settings.Default.BoundsSetting;
             WindowState = Properties.Settings.Default.WindowStateSetting;
 
+            EndControlUpdate(dgvShops);
+
             dgvShops.RowValidating += new DataGridViewCellCancelEventHandler(dgvShops_RowValidating);
             dgvShops.RowValidated += new DataGridViewCellEventHandler(dgvShops_RowValidated);
             dgvShops.CellValidating += new DataGridViewCellValidatingEventHandler(dgvShops_CellValidating);
             dgvShops.CellValueChanged += new DataGridViewCellEventHandler(dgvShops_CellValueChanged);
-
             src.ListChanged += new ListChangedEventHandler(src_ListChanged);
 
-            EndControlUpdate(dgvShops);
+            log.write(LogWriter.TYPE_EV, "店舗マスタ編集画面起動完了");
         }
 
         private void frmShops_FormClosing(object sender, FormClosingEventArgs e)
@@ -150,6 +152,7 @@ namespace 納品データ作成ツール
                     ss.serialize();
                     this.changed = false;
                     this.saved = true;
+                    log.write(LogWriter.TYPE_EV, "店舗マスタの編集内容を保存");
                 }
             }
 
@@ -164,6 +167,8 @@ namespace 納品データ作成ツール
             }
             Properties.Settings.Default.WindowStateSetting = WindowState;
             Properties.Settings.Default.Save();
+
+            log.write(LogWriter.TYPE_EV, "店舗マスタ編集画面を終了。保存フラグ = [" + saved +"]");
         }
 
         private DataGridViewTextBoxColumn CreateTextCol(string src, string name, string headertext)
@@ -198,6 +203,18 @@ namespace 納品データ作成ツール
         {
             DataGridView dgvShop = (DataGridView)sender;
             string n = dgvShop.Columns[e.ColumnIndex].Name;
+
+            //// 編集中の行にアイコンを表示させない
+            //if (dgvShops.IsCurrentRowDirty
+            //     && e.RowIndex == dgvShops.CurrentCell.RowIndex
+            //     && (n == ColUp || n == ColDown || n == ColDelete)) 
+            //{
+            //    e.Value = null;
+            //    //e.CellStyle = null;
+            //    e.FormattingApplied = true;
+            //    return;
+            //}
+
             // 上矢印は、2行目から(新規行を除く)
             if (e.RowIndex > 0 && e.RowIndex < dgvShop.Rows.Count - 1)
             {
@@ -228,6 +245,18 @@ namespace 納品データ作成ツール
                 }
             }
         }
+
+        /// <summary>
+        /// 新しい行の既定値
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvShops_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells[ColOrder].Value = ss.List.Count;
+
+        }
+
         #endregion
 
         #region "セルの移動、IMEの設定"
@@ -235,47 +264,45 @@ namespace 納品データ作成ツール
         {
             switch (dgvShops.Columns[e.ColumnIndex].Name)
             {
-                case ColOrder:
-                    SendKeys.Send("{Tab}"); // Orderセルはスキップする
-                    break;
                 case ColCode:
                     dgvShops.ImeMode = ImeMode.Alpha;
+                    dgvShops.BeginEdit(true);
                     break;
                 case ColName:
                     dgvShops.ImeMode = ImeMode.Hiragana;
+                    dgvShops.BeginEdit(true);
                     break;
-            }
-        }
-
-        private void dgvShops_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-            if (dgvShops.CurrentRow.IsNewRow) return;
-
-            string n = dgvShops[dgvShops.CurrentCellAddress.X, dgvShops.CurrentCellAddress.Y].OwningColumn.Name;
-            int icode = dgvShops.Columns[ColCode].Index;
-
-            if (n != ColCode && e.KeyCode == Keys.Enter)
-            {
-
-                e.Handled = true;
-
-                if (dgvShops.Rows[dgvShops.CurrentCellAddress.Y + 1].IsNewRow) return;
-
-                dgvShops.CurrentCell = dgvShops[icode, dgvShops.CurrentCellAddress.Y + 1];
+                case ColOrder:
+                    SendKeys.Send("{Tab}");
+                    break;
+                default:
+                    return;
             }
         }
         #endregion
 
         #region "入力値のチェック"
-        private void CheckCode(string v, bool isNew = false)
+        private void CheckCode(string v)
         {
             int r;
-            if (v.Length < 3 || !int.TryParse(v, out r)) throw new Exception("コードは三桁の数値で入力してください");
-            
-            if(isNew && ss.List.Any(s => s.Code == r)) throw new Exception("入力されたコードは既に使用されています");
+            if (v.Length < 3 || !int.TryParse(v, out r)) throw new Exception("店舗コードは三桁の数値で入力してください");
+
+            /*
+            要素の重複チェック
+
+            本来はCellValidatingで、データソースの既存の値の数について
+            ・新規行追加時には、1以上
+            ・既存行更新時には、2以上
+            と処理ごとに分けて考えたいところだが、
+            CellValidating発生時、その行が新規なのか更新なのか判断が不可能？(isNewRowが常にFalseになってしまう)
+
+            妥協して…
+            RowValidatingの時にだけ有効なエラーフックとする
+            */
+
+            if (src.Count<shop>(s => s.Code == r) >= 2) throw new Exception("入力された店舗コードは既に使用されています");
         }
-        
+
         private void dgvShops_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
         {
             if (!dgvShops.IsCurrentRowDirty) return;
@@ -296,13 +323,12 @@ namespace 納品データ作成ツール
             }
             try
             {
-                CheckCode(vcode, dgvShops.CurrentRow.IsNewRow);
+                CheckCode(vcode);
             }
             catch (Exception ex)
             {
                 m.AppendLine(ex.Message);
             }
-
 
             try
             {
@@ -319,6 +345,8 @@ namespace 納品データ作成ツール
                 MessageBox.Show(m.ToString());
                 e.Cancel = true;
             }
+
+            log.write(LogWriter.TYPE_EV, e.RowIndex + "行目のデータを変更　 code=[" + vcode + "] name=[" + vname + "]");
         }
 
         private void dgvShops_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -342,7 +370,7 @@ namespace 納品データ作成ツール
             {
                 try
                 {
-                    CheckCode(vcode, dgvShops.CurrentRow.IsNewRow);
+                    CheckCode(vcode);
                 }
                 catch (Exception ex)
                 {
@@ -390,11 +418,16 @@ namespace 納品データ作成ツール
         #region "データの削除、移動"
         private void dgvShops_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvShops.CurrentRow.IsNewRow) return;
+            if (dgvShops.IsCurrentRowDirty || dgvShops.CurrentRow.IsNewRow) return;
 
             int ci = e.ColumnIndex;
             int ri = e.RowIndex;
-            if (ci < 0 || ri < 0) return;
+            if (ci < 0 || ri < 0) return; // 見出し選択時
+
+            int icode = dgvShops.Columns[ColCode].Index;
+            int iname = dgvShops.Columns[ColName].Index;
+            string vcode = dgvShops[icode, ri].Value.ToString();
+            string vname = (string)dgvShops[iname, ri].Value;
 
             shop s = ss.List[ri];
 
@@ -402,56 +435,88 @@ namespace 納品データ作成ツール
             {
                 case ColDelete:
                     if (MessageBox.Show(s.Name + "(" + s.Code.ToString("000") + ")を削除してよろしいですか？"
-                        , ""
-                        , MessageBoxButtons.YesNo)
-                          == DialogResult.Yes)
+                        , "" , MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         ss.RemoveAt(ri);
-                        src.ResetBindings();
+                        // CellEnterが有効だと、意図しないセルが選択されてしまう
+                        dgvShops.CellEnter -= new DataGridViewCellEventHandler(dgvShops_CellEnter);
+                        try
+                        {
+                            src.ResetBindings();
+                            // セルと行を明示的に選択しておく
+                            dgvShops.CurrentCell = ri < 1 ? dgvShops[ci, 0] : dgvShops[ci, ri - 1];
+                            dgvShops.Rows[dgvShops.CurrentCell.RowIndex].Selected = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            // 新規行のアイコンをクリックすると例外が発生する
+                            // データソース自体は更新されているようなので、とりあえず何もしない
+                            log.write(LogWriter.TYPE_ER, "店舗情報削除時、ResetBindings()で例外発生。" + nr + ex.Message);
+                        }
+                        dgvShops.CellEnter += new DataGridViewCellEventHandler(dgvShops_CellEnter);
+                        log.write(LogWriter.TYPE_EV, ri + "行目のデータを削除　 code=[" + vcode + "] name=[" + vname + "]");
                     }
                     break;
                 case ColUp:
-                    if (ri > 1)
+                    if (ri > 0)
                     {
                         ss.Move(ri, ri - 1);
+                        dgvShops.CellEnter -= new DataGridViewCellEventHandler(dgvShops_CellEnter);
                         src.ResetBindings();
+                        // セルと行を明示的に選択しておく
+                        dgvShops.CurrentCell = dgvShops[ci, ri - 1];
+                        dgvShops.Rows[ri - 1].Selected = true;
+                        dgvShops.CellEnter += new DataGridViewCellEventHandler(dgvShops_CellEnter);
+                        log.write(LogWriter.TYPE_EV,
+                                  ri.ToString() + "→" + (ri - 1).ToString() + "にデータを移動" 
+                                  + "  code=[" + vcode + "] name=[" + vname + "]");
                     }
-                    //dgvShops.Rows[ri - 1].Selected = true;
                     break;
                 case ColDown:
                     if (ri < ss.List.Count - 1)
                     {
                         ss.Move(ri, ri + 1);
+                        dgvShops.CellEnter -= new DataGridViewCellEventHandler(dgvShops_CellEnter);
                         src.ResetBindings();
+                        // セルと行を明示的に選択しておく
+                        dgvShops.CurrentCell = dgvShops[ci, ri + 1];
+                        dgvShops.Rows[ri + 1].Selected = true;
+                        dgvShops.CellEnter += new DataGridViewCellEventHandler(dgvShops_CellEnter);
+                        log.write(LogWriter.TYPE_EV,
+                                  ri.ToString() + "→" + (ri + 1).ToString() + "にデータを移動"
+                                   + "  code=[" + vcode + "] name=[" + vname + "]");
                     }
-                    break;
-                case ColCode:
-                    SendKeys.Send("{F2}");
-                    break;
-                case ColName:
-                    SendKeys.Send("{F2}");
                     break;
                 default:
                     return;
 
             }
-            
         }
-
         #endregion
 
         #region "保存、キャンセル"
         private void src_ListChanged(object sender, ListChangedEventArgs e)
         {
-            Console.WriteLine(e.ToString());
             changed = true;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
         #endregion
+
+        #region "DataGridViewの例外発生時の処理"
+        private void dgvShops_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            log.write(LogWriter.TYPE_ER, "DataGridView DataErrorをハンドル"
+                         + nr + e.Exception.Message
+                         + nr + e.Context);
+            e.ThrowException = false;
+
+        }
+        #endregion
+
 
     }
 }

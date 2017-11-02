@@ -232,9 +232,9 @@
             // 店舗の情報の編集ToolStripMenuItem
             // 
             this.店舗の情報の編集ToolStripMenuItem.Name = "店舗の情報の編集ToolStripMenuItem";
-            this.店舗の情報の編集ToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.店舗の情報の編集ToolStripMenuItem.Text = "店舗の情報の編集";
-            this.店舗の情報の編集ToolStripMenuItem.Click += new System.EventHandler(this.店舗の情報の編集ToolStripMenuItem_Click);
+            this.店舗の情報の編集ToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.店舗の情報の編集ToolStripMenuItem.Text = "店舗情報の編集(要再起動)";
+            this.店舗の情報の編集ToolStripMenuItem.Click += new System.EventHandler(this.店舗の情報の編集_Click);
             // 
             // frmMain
             // 

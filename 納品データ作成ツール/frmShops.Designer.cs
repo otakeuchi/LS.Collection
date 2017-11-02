@@ -43,7 +43,7 @@
             this.btnClose.TabIndex = 2;
             this.btnClose.Text = "閉じる";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // dgvShops
             // 
@@ -64,9 +64,9 @@
             this.dgvShops.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvShop_CellFormatting);
             this.dgvShops.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvShops_CellValidating);
             this.dgvShops.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShops_CellValueChanged);
+            this.dgvShops.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvShops_DefaultValuesNeeded);
             this.dgvShops.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShops_RowValidated);
             this.dgvShops.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvShops_RowValidating);
-            this.dgvShops.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvShops_KeyDown);
             // 
             // frmShops
             // 
