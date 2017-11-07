@@ -182,8 +182,7 @@ namespace 納品データ作成ツール.Tests
                 Common.ClearTestDir();
 
                 Common.CreateShopList();
-                ss = new shops();
-                ss.ReadDef(Common.ShopsFile);
+                ss = new shops(Common.ShopsFile);
 
                 string t = Common.TestDir + @"\";
                 List<string> l = Common.CreateImageDir(1);
@@ -213,8 +212,7 @@ namespace 納品データ作成ツール.Tests
                 Common.ClearTestDir();
 
                 Common.CreateShopList();
-                var ss = new shops();
-                ss.ReadDef(Common.ShopsFile);
+                var ss = new shops(Common.ShopsFile);
 
                 string t = Common.TestDir + @"\";
                 l = Common.CreateImageDir(1);
@@ -246,8 +244,7 @@ namespace 納品データ作成ツール.Tests
                 Common.ClearTestDir();
 
                 Common.CreateShopList();
-                ss = new shops();
-                ss.ReadDef(Common.ShopsFile);
+                ss = new shops(Common.ShopsFile);
 
                 string t = Common.TestDir + @"\";
                 l = Common.CreateImageDir(2);
@@ -279,8 +276,7 @@ namespace 納品データ作成ツール.Tests
             Common.ClearTestDir();
 
             Common.CreateShopList();
-            var ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            var ss = new shops(Common.ShopsFile);
 
             string t = Common.TestDir + @"\";
             List<string> l = Common.CreateImageDir(1);
@@ -307,8 +303,7 @@ namespace 納品データ作成ツール.Tests
                 Common.ClearTestDir();
 
                 Common.CreateShopList();
-                var ss = new shops();
-                ss.ReadDef(Common.ShopsFile);
+                var ss = new shops(Common.ShopsFile);
 
                 string t = Common.TestDir + @"\";
                 List<string> l = Common.CreateImageDir(1);
@@ -335,8 +330,7 @@ namespace 納品データ作成ツール.Tests
             Common.ClearTestDir();
 
             Common.CreateShopList();
-            var ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            var ss = new shops(Common.ShopsFile);
 
             string t = Common.TestDir + @"\";
             List<string> l = Common.CreateImageDir(2);
@@ -419,8 +413,7 @@ namespace 納品データ作成ツール.Tests
                 FileAccessor.deleteFile(e);
 
                 Common.CreateShopList();
-                var ss = new shops();
-                ss.ReadDef(Common.ShopsFile);
+                var ss = new shops(Common.ShopsFile);
 
                 C = new Controller(Common.ShopsFile, Common.RootImageDir);
                 try
@@ -460,8 +453,7 @@ namespace 納品データ作成ツール.Tests
             string t = Common.TestDir + @"\";
 
             Common.CreateShopList();
-            var ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            var ss = new shops(Common.ShopsFile);
 
             var C = new Controller(Common.ShopsFile, Common.RootImageDir);
             C.SetDir(t);
@@ -506,8 +498,7 @@ namespace 納品データ作成ツール.Tests
                 string t = Common.TestDir + @"\";
 
                 Common.CreateShopList();
-                var ss = new shops();
-                ss.ReadDef(Common.ShopsFile);
+                var ss = new shops(Common.ShopsFile);
 
                 C = new Controller(Common.ShopsFile, Common.RootImageDir);
                 C.SetDir(t);
@@ -554,8 +545,7 @@ namespace 納品データ作成ツール.Tests
                 string t = Common.TestDir + @"\";
 
                 Common.CreateShopList();
-                var ss = new shops();
-                ss.ReadDef(Common.ShopsFile);
+                var ss = new shops(Common.ShopsFile);
 
                 C = new Controller(Common.ShopsFile, Common.RootImageDir);
                 C.SetDir(t);
@@ -588,8 +578,7 @@ namespace 納品データ作成ツール.Tests
             string e = t + @"\test.xlsx";
 
             Common.CreateShopList();
-            var ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            var ss = new shops(Common.ShopsFile);
 
             var C = new Controller(Common.ShopsFile, Common.RootImageDir);
             C.SetDir(t);
@@ -633,8 +622,7 @@ namespace 納品データ作成ツール.Tests
                 string e = t + "test.xlsx";
 
                 Common.CreateShopList();
-                var ss = new shops();
-                ss.ReadDef(Common.ShopsFile);
+                var ss = new shops(Common.ShopsFile);
 
                 C = new Controller(Common.ShopsFile, Common.RootImageDir);
                 C.SetDir(t);
@@ -672,8 +660,7 @@ namespace 納品データ作成ツール.Tests
                 string e = t + "test.xlsx";
 
                 Common.CreateShopList();
-                var ss = new shops();
-                ss.ReadDef(Common.ShopsFile);
+                var ss = new shops(Common.ShopsFile);
 
                 C = new Controller(Common.ShopsFile, Common.RootImageDir);
                 C.SetDir(t);
@@ -699,8 +686,7 @@ namespace 納品データ作成ツール.Tests
                 string e = t + "test.xlsx";
 
                 Common.CreateShopList();
-                var ss = new shops();
-                ss.ReadDef(Common.ShopsFile);
+                var ss = new shops(Common.ShopsFile);
 
                 C = new Controller(Common.ShopsFile, Common.RootImageDir);
                 C.SetDir(t);
@@ -741,8 +727,7 @@ namespace 納品データ作成ツール.Tests
                 string e = t + "test.xlsx";
 
                 Common.CreateShopList();
-                var ss = new shops();
-                ss.ReadDef(Common.ShopsFile);
+                var ss = new shops(Common.ShopsFile);
 
                 C = new Controller(Common.ShopsFile, Common.RootImageDir);
                 C.SetDir(t);
@@ -779,8 +764,7 @@ namespace 納品データ作成ツール.Tests
             string e = t + "test.xlsx";
 
             Common.CreateShopList();
-            var ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            var ss = new shops(Common.ShopsFile);
 
             var C = new Controller(Common.ShopsFile, Common.RootImageDir);
             C.SetDir(t);

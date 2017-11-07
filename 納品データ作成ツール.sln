@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "納品データ作成ツー
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "納品データ作成ツールTests", "納品データ作成ツールTests\納品データ作成ツールTests.csproj", "{A532D860-D0FF-4226-8F71-2DCEDD0923A1}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EOSToolsCommon", "..\..\..\..\Projects\共通ライブラリ\Common\EOSToolsCommon.vbproj", "{A953705A-6D3D-41F8-A140-50A1B80497E2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,18 +41,6 @@ Global
 		{A532D860-D0FF-4226-8F71-2DCEDD0923A1}.Release|x64.Build.0 = Release|Any CPU
 		{A532D860-D0FF-4226-8F71-2DCEDD0923A1}.Release|x86.ActiveCfg = Release|Any CPU
 		{A532D860-D0FF-4226-8F71-2DCEDD0923A1}.Release|x86.Build.0 = Release|Any CPU
-		{A953705A-6D3D-41F8-A140-50A1B80497E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A953705A-6D3D-41F8-A140-50A1B80497E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A953705A-6D3D-41F8-A140-50A1B80497E2}.Debug|x64.ActiveCfg = Debug|x64
-		{A953705A-6D3D-41F8-A140-50A1B80497E2}.Debug|x64.Build.0 = Debug|x64
-		{A953705A-6D3D-41F8-A140-50A1B80497E2}.Debug|x86.ActiveCfg = Debug|x86
-		{A953705A-6D3D-41F8-A140-50A1B80497E2}.Debug|x86.Build.0 = Debug|x86
-		{A953705A-6D3D-41F8-A140-50A1B80497E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A953705A-6D3D-41F8-A140-50A1B80497E2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A953705A-6D3D-41F8-A140-50A1B80497E2}.Release|x64.ActiveCfg = Release|x64
-		{A953705A-6D3D-41F8-A140-50A1B80497E2}.Release|x64.Build.0 = Release|x64
-		{A953705A-6D3D-41F8-A140-50A1B80497E2}.Release|x86.ActiveCfg = Release|x86
-		{A953705A-6D3D-41F8-A140-50A1B80497E2}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

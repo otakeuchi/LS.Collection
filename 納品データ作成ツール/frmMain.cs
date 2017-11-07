@@ -485,7 +485,14 @@ namespace 納品データ作成ツール
             fbd.SelectedPath = Properties.Settings.Default.FbdPath;
             if (fbd.ShowDialog() != DialogResult.OK) return;
             txtDir.Text = fbd.SelectedPath;
-            C.SetDir(txtDir.Text);
+            try
+            {
+                C.SetDir(txtDir.Text);
+            }
+            catch (Exception ex)
+            {
+                err.execute(ex.Message, LogWriter.TYPE_ER, true, log);
+            }
             Properties.Settings.Default.FbdPath = fbd.SelectedPath;
             Properties.Settings.Default.Save();
             log.write(LogWriter.TYPE_EV, "出力先フォルダ：" + txtDir.Text);
@@ -606,5 +613,27 @@ namespace 納品データ作成ツール
         }
         #endregion
 
+        #region "メニューバー"
+        private void 店舗の情報の編集_Click(object sender, EventArgs e)
+        {
+            // frmShops f = new frmShops(C.SS);
+            log.write(LogWriter.TYPE_EV, "……店舗情報編集画面の呼び出し……");
+            frmShops f = new frmShops(); //　インスタンスは渡さない→店舗情報編集後、再起動が必要
+            f.ShowDialog();
+            if (f.saved)
+            {
+                log.write(LogWriter.TYPE_EV, "店舗情報を保存したため、再起動を促す。");
+                DialogResult r = MessageBox.Show("変更した内容はプログラムを再起動した後に反映されます。"
+                    + nr + "お手数ですがプログラムを再起動してください。","",MessageBoxButtons.OK);
+
+                log.write(LogWriter.TYPE_EV, "再起動：[" + r.ToString() + "]");
+            }
+            else
+            {
+                log.write(LogWriter.TYPE_EV, "店舗情報未保存");
+            }
+            log.write(LogWriter.TYPE_EV, "……店舗情報編集終了……");
+        }
+        #endregion 
     }
 }

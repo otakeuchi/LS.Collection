@@ -75,8 +75,7 @@ namespace 納品データ作成ツール
             // 店舗情報を初期化
             try
             {
-                SS = new shops();
-                SS.ReadDef(ShopListFile);
+                SS = new shops(ShopListFile);
             }
             catch (Exception ex)
             {

@@ -67,7 +67,7 @@ namespace 納品データ作成ツール.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("EOSSERVER\\SQLEXPRESS")]
+        [global::System.Configuration.DefaultSettingValueAttribute("eosserver\\SQLEXPRESS")]
         public string DBServer {
             get {
                 return ((string)(this["DBServer"]));
@@ -103,7 +103,7 @@ namespace 納品データ作成ツール.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\\\EOSSERVER\\EntryPrj\\WMEM\\image\\IMPORTED")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\EOSSERVER\\EntryPrj\\WMEM\\IMAGE\\IMPORTED")]
         public string ImageDirRoot {
             get {
                 return ((string)(this["ImageDirRoot"]));
@@ -156,6 +156,30 @@ namespace 納品データ作成ツール.Properties {
         public double FontSize {
             get {
                 return ((double)(this["FontSize"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 0, 0")]
+        public global::System.Drawing.Rectangle BoundsSetting {
+            get {
+                return ((global::System.Drawing.Rectangle)(this["BoundsSetting"]));
+            }
+            set {
+                this["BoundsSetting"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        public global::System.Windows.Forms.FormWindowState WindowStateSetting {
+            get {
+                return ((global::System.Windows.Forms.FormWindowState)(this["WindowStateSetting"]));
+            }
+            set {
+                this["WindowStateSetting"] = value;
             }
         }
     }

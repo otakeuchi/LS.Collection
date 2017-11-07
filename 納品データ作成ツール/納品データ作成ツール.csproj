@@ -59,6 +59,10 @@
     <Reference Include="DocumentFormat.OpenXml">
       <HintPath>..\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
+    <Reference Include="EOSToolsCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\参照モジュール\EOSToolsCommon.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -74,11 +78,21 @@
   <ItemGroup>
     <Compile Include="Batch.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="DataGridViewEx.cs" />
+    <Compile Include="DataGridViewEx.Designer.cs">
+      <DependentUpon>DataGridViewEx.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmShops.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmShops.Designer.cs">
+      <DependentUpon>frmShops.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,6 +105,9 @@
     </Compile>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShops.resx">
+      <DependentUpon>frmShops.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -138,12 +155,6 @@
 </ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Projects\共通ライブラリ\Common\EOSToolsCommon.vbproj">
-      <Project>{a953705a-6d3d-41f8-a140-50a1b80497e2}</Project>
-      <Name>EOSToolsCommon</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

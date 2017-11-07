@@ -161,8 +161,7 @@ namespace 納品データ作成ツール.Tests
             Common.ClearTestDir();
 
             Common.CreateShopList();
-            shops ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            shops ss = new shops(Common.ShopsFile);
 
             string bn = Common.CreateImageDir(1)[0];
             string f = Common.TestDir + @"\" + int.Parse(bn).ToString("0000") + "-SEQ.csv";
@@ -217,8 +216,7 @@ namespace 納品データ作成ツール.Tests
                 b = new Batch(f);
 
                 Common.CreateShopList();
-                shops ss = new shops();
-                ss.ReadDef(Common.ShopsFile);
+                shops ss = new shops(Common.ShopsFile);
 
                 b.setShop(ss.List[0]);
             }
@@ -241,8 +239,7 @@ namespace 納品データ作成ツール.Tests
             var b = new Batch(f);
 
             Common.CreateShopList();
-            shops ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            shops ss = new shops(Common.ShopsFile);
 
             b.setShop(ss.List[0]);
             b.setRenamedDir(0); // フォルダ名を確定
@@ -273,8 +270,7 @@ namespace 納品データ作成ツール.Tests
             var b = new Batch(f);
 
             Common.CreateShopList();
-            shops ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            shops ss = new shops(Common.ShopsFile);
 
             b.setShop(ss.List[0]);
             b.setRenamedDir(0); // フォルダ名を確定
@@ -310,8 +306,7 @@ namespace 納品データ作成ツール.Tests
             var b = new Batch(f);
 
             Common.CreateShopList();
-            shops ss = new shops();
-            ss.ReadDef(Common.ShopsFile);
+            shops ss = new shops(Common.ShopsFile);
 
             b.setShop( ss.List[0]);
             b.setRenamedDir(0); // フォルダ名を確定
