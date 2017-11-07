@@ -103,7 +103,7 @@ namespace 納品データ作成ツール.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\\\eosserver\\EntryPrj\\WMEM\\image\\IMPORTED")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\EOSSERVER\\EntryPrj\\WMEM\\IMAGE\\IMPORTED")]
         public string ImageDirRoot {
             get {
                 return ((string)(this["ImageDirRoot"]));

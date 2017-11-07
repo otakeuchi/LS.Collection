@@ -40,6 +40,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ClosedXML.dll</HintPath>
     </Reference>
+    <Reference Include="DocumentFormat.OpenXml">
+      <HintPath>..\納品データ作成ツール\bin\Debug\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="EOSToolsCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\参照モジュール\EOSToolsCommon.dll</HintPath>

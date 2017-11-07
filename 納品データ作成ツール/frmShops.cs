@@ -79,6 +79,7 @@ namespace 納品データ作成ツール
             dgvShops.RowValidated -= new DataGridViewCellEventHandler(dgvShops_RowValidated);
             dgvShops.CellValidating -= new DataGridViewCellValidatingEventHandler(dgvShops_CellValidating);
             dgvShops.CellValueChanged -= new DataGridViewCellEventHandler(dgvShops_CellValueChanged);
+            dgvShops.DefaultValuesNeeded -= new DataGridViewRowEventHandler(dgvShops_DefaultValuesNeeded);
 
             changed = false;
             saved = false;
@@ -126,14 +127,21 @@ namespace 納品データ作成ツール
             Bounds = Properties.Settings.Default.BoundsSetting;
             WindowState = Properties.Settings.Default.WindowStateSetting;
 
-            EndControlUpdate(dgvShops);
+            try
+            {
+                dgvShops.RowValidating += new DataGridViewCellCancelEventHandler(dgvShops_RowValidating);
+                dgvShops.RowValidated += new DataGridViewCellEventHandler(dgvShops_RowValidated);
+                dgvShops.CellValidating += new DataGridViewCellValidatingEventHandler(dgvShops_CellValidating);
+                dgvShops.CellValueChanged += new DataGridViewCellEventHandler(dgvShops_CellValueChanged);
+                src.ListChanged += new ListChangedEventHandler(src_ListChanged);
+                dgvShops.DefaultValuesNeeded += new DataGridViewRowEventHandler(dgvShops_DefaultValuesNeeded);
 
-            dgvShops.RowValidating += new DataGridViewCellCancelEventHandler(dgvShops_RowValidating);
-            dgvShops.RowValidated += new DataGridViewCellEventHandler(dgvShops_RowValidated);
-            dgvShops.CellValidating += new DataGridViewCellValidatingEventHandler(dgvShops_CellValidating);
-            dgvShops.CellValueChanged += new DataGridViewCellEventHandler(dgvShops_CellValueChanged);
-            src.ListChanged += new ListChangedEventHandler(src_ListChanged);
-
+                EndControlUpdate(dgvShops);
+            }
+            catch (Exception ex)
+            {
+                log.write(LogWriter.TYPE_ER, "画面ロード時にエラー" + nr + ex.Message);
+            }
             log.write(LogWriter.TYPE_EV, "店舗マスタ編集画面起動完了");
         }
 
@@ -254,7 +262,6 @@ namespace 納品データ作成ツール
         private void dgvShops_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells[ColOrder].Value = ss.List.Count;
-
         }
 
         #endregion
@@ -285,7 +292,7 @@ namespace 納品データ作成ツール
         private void CheckCode(string v)
         {
             int r;
-            if (v.Length < 3 || !int.TryParse(v, out r)) throw new Exception("店舗コードは三桁の数値で入力してください");
+            if (v.Length != 3 || !int.TryParse(v, out r)) throw new Exception("店舗コードは三桁の数値で入力してください");
 
             /*
             要素の重複チェック
